@@ -1,7 +1,5 @@
 # Sistema de Controle de Assinaturas de Aplicativos (SCAA)
 
-# Descrição
-
 Este projeto é a implementação de um sistema de controle de assinaturas de aplicativos (SCAA) para uma startup fictícia que trabalha com um modelo de negócio baseado em assinaturas mensais para aplicativos móveis. O sistema tem como objetivo gerenciar os aplicativos oferecidos, os clientes, as assinaturas, os pagamentos e a validade das assinaturas. 
 
 # O projeto foi desenvolvido em duas partes
