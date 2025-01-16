@@ -1,0 +1,89 @@
+services:
+
+  tfprojarq:
+    build: tfprojarq  
+    image: tfprojarq
+    ports:
+      - "8000:8000"
+    networks:
+      - scaa-network
+    depends_on:
+      - nameserver
+      - db
+      - rabbitmq
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://nameserver:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/servcadDB
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - spring.rabbitmq.host=rabbitmq
+      - spring.rabbitmq.port=5672
+      - spring.rabbitmq.username=tfprojarq
+      - spring.rabbitmq.password=tfprojarq
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: servcadDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    networks:
+      - scaa-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  asscache:
+    build: Asscache
+    image: asscache
+    ports:
+      - "8100"
+    networks:
+      - scaa-network
+    depends_on:
+      - nameserver
+      - rabbitmq
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://nameserver:8761/eureka
+      - spring.rabbitmq.host=rabbitmq
+      - spring.rabbitmq.port=5672
+      - spring.rabbitmq.username=tfprojarq
+      - spring.rabbitmq.password=tfprojarq
+
+  nameserver:
+    build: nameserver
+    image: nameserver
+    ports:
+      - "8761:8761"
+    networks:
+      - scaa-network
+
+  gateway:
+    build: gateway 
+    image: gateway
+    ports:
+      - "8765:8765"
+    networks:
+      - scaa-network
+    depends_on:
+      - nameserver
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://nameserver:8761/eureka
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=tfprojarq
+      - RABBITMQ_DEFAULT_PASS=tfprojarq
+    networks:
+      - scaa-network
+
+networks:
+  scaa-network:
+
+volumes: 
+  db-data:
