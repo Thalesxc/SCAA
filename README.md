@@ -4,7 +4,7 @@
 
 Este projeto é a implementação de um sistema de controle de assinaturas de aplicativos (SCAA) para uma startup fictícia que trabalha com um modelo de negócio baseado em assinaturas mensais para aplicativos móveis. O sistema tem como objetivo gerenciar os aplicativos oferecidos, os clientes, as assinaturas, os pagamentos e a validade das assinaturas. 
 
-# O projeto foi desenvolvido em duas partes:
+# O projeto foi desenvolvido em duas partes
 
 Parte 1: Desenvolvimento do sistema como um backend monolítico utilizando a arquitetura CLEAN.
 
@@ -31,7 +31,7 @@ A segunda parte do projeto envolveu a refatoração do sistema para uma arquitet
 - Comunicação síncrona com o SCAA: Quando o AssCache não possui a informação sobre a validade de uma assinatura, ele faz uma consulta síncrona ao SCAA e armazena a informação em cache para consultas futuras.
 - Comunicação entre microsserviços: O SCAA envia notificações para o AssCache sobre atualizações de assinaturas através de filas, garantindo que todas as instâncias do AssCache recebam as atualizações.
 
-# Tecnologias Utilizadas:
+# Tecnologias Utilizadas
 
 - Java 17
 - Spring Boot
